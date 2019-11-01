@@ -1,6 +1,7 @@
 import logging
 import requests
 from datetime import datetime
+from database.tables import db
 from resources.constants import OUTPUT_FORMAT, GOOGLE_GEOCODE_BASE_URL, API_KEY
 from resources.util import create_geocoding_params, parse_geocode_response
 from flask import Flask, request, jsonify
@@ -13,9 +14,6 @@ app = Flask(__name__)
 file_handler = logging.FileHandler(f'logs/api_log_{STARTUP_TIME.date()}_{STARTUP_TIME.timestamp()}.log')
 app.logger.addHandler(file_handler)
 app.logger.setLevel(logging.INFO)
-
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/geospatial_usa_states'
-db = SQLAlchemy(app)
 
 
 @app.route('/', methods=['GET'])
@@ -59,5 +57,7 @@ def get_state_from_address(address):
 if __name__ == '__main__':
     app.debug = True
     app.logger.info(f'Server start time: {STARTUP_TIME}')
-    app.run(host='0.0.0.0', port=4996)
 
+    db.create_all()
+
+    app.run(host='0.0.0.0', port=4996)

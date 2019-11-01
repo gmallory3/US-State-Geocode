@@ -1,11 +1,10 @@
 ## US State Address Geolocator
 
-###Code setup:
+###Setup:
+######Code:
 1. Install the project requirements using `pip install -r requirements.txt`
-2. 
 
-
-###Database Setup (optional):
+######Database (optional):
 1. Install the Postgres.app application (https://postgresapp.com/). 
     * This gives us an easy-to-set up Postgres database, the PostGIS extension, a tool to import shape files into a PostGIS-enabled database called shp2pgsql
 2. Open Postgres.app to start a Postgres server with 3 default databases.
@@ -17,19 +16,21 @@
     
 <img src="https://github.com/gmallory3/US-State-Geocode/tree/master/resources/DB_setup_img_001.png" width="48">
 
+###Run:
+1. In a terminal, run `python app.py`
+2. Now that the API is running, go to a website such as `http://localhost:4996/api/v1/find_state/3535 Piedmont Rd NE, Atlanta, GA 30305` or use an API testing tool such as Postman to check it out!
 
-Run code by:
-1. TBD
 
-Design Notes:
-1. Using postgres.app as the database manager.
-2. It comes with Postgres and PostGIS extension. 
-3. It also has a tool to import shape files into a PostGIS-enabled database called shp2pgsql
-
-Possible Future Extensions:
+###Design Notes:
+1. External application Postgres.app used for it's simple setup.
+2. External library Flask chosen for it's common use in industry.
+ 
+###Possible (and necessary?) Future Extensions:
 * Swagger documentation
-* Define tests in postman sandbox
-* Containerize with Docker (potentially including DB instance as well)
+* Define API Test suite in Postman sandbox
+* Containerize with Docker (potentially including DB instance or DB setup script & maintenance tools such as Flyway as well)
 * Street View Publish API could give image of the address as API endpoint
+* Longitude and Latitude can be reversed into an address easily with Geocoding API
+* Status messages, logging, testing can all be improved.
 
 You can read more about Google's Geocoding API here: https://developers.google.com/maps/documentation/geocoding/intro
