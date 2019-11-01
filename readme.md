@@ -13,7 +13,7 @@ Database Setup (optional):
 5. Test by running a select statement against the table!
     * Note, you'll either need to double click your database in Postgress.app or run `psql -h localhost -U DATABASE_USER DATABASE_NAME` to start a db shell.
     
-<img src="https://github.com/gmallory3/US-State-Geocode/tree/master/resources/DB_setup_img_001.png" width="48">
+![screenshot](/resources/DB_setup_img_001.png?raw=True)
 
 Run:
 1. In a terminal, run `python app.py`
