@@ -4,7 +4,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///example.sqlite"
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/geospatial_usa_states'
 db = SQLAlchemy(app)
 
 
