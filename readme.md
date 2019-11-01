@@ -1,10 +1,9 @@
 ## US State Address Geolocator
 
-###Setup:
-######Code:
+Code Setup:
 1. Install the project requirements using `pip install -r requirements.txt`
 
-######Database (optional):
+Database Setup (optional):
 1. Install the Postgres.app application (https://postgresapp.com/). 
     * This gives us an easy-to-set up Postgres database, the PostGIS extension, a tool to import shape files into a PostGIS-enabled database called shp2pgsql
 2. Open Postgres.app to start a Postgres server with 3 default databases.
@@ -16,16 +15,17 @@
     
 <img src="https://github.com/gmallory3/US-State-Geocode/tree/master/resources/DB_setup_img_001.png" width="48">
 
-###Run:
+Run:
 1. In a terminal, run `python app.py`
 2. Now that the API is running, go to a website such as `http://localhost:4996/api/v1/find_state/3535 Piedmont Rd NE, Atlanta, GA 30305` or use an API testing tool such as Postman to check it out!
 
 
-###Design Notes:
+Design Notes:
 1. External application Postgres.app used for it's simple setup.
 2. External library Flask chosen for it's common use in industry.
+3. Ultimately, I used the return values from the Geocoding call to find address information. The alternative is to go more in depth with Census Bureau data of which there is <a href="https://www2.census.gov/geo/pdfs/maps-data/data/tiger/tgrshp2019/2019_TIGER_GDB_Record_Layouts.pdf?#"> a LOT</a>. Benfits include keeping data static, not relying on 3rd party up time, and decreased long term costs assocated with querying against API endpoints. 
  
-###Possible (and necessary?) Future Extensions:
+Possible (and necessary?) Future Extensions:
 * Swagger documentation
 * Define API Test suite in Postman sandbox
 * Containerize with Docker (potentially including DB instance or DB setup script & maintenance tools such as Flyway as well)
