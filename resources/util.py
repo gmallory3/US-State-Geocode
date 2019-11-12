@@ -1,11 +1,12 @@
 """
 Utility Functions
 """
+from flask import request
 
 
 def create_geocoding_params(param_dict):
     """
-    Turn a dictionary with the address into  Google Geocode API parameter string
+    Turn a dictionary with the address into Google Geocode API parameter string
     :param param_dict: dictionary with keys address and key
     :return: google_geocode_parameters
     """
@@ -62,10 +63,15 @@ def parse_geocode_response(response):
 
         return {'latitude': latitude,
                 'longitude': longitude,
-                'state': state
+                # 'state': state # Ignoring state for purposes of exercise.
                 }
 
     except (ValueError, KeyError) as error:
         return {'status_code': 400,
                 'status': 'Bad Request',
                 'error': error}
+
+
+def state_from_coordinates(coordinates):
+    coordinates['example_state'] = 'TN'
+    return coordinates

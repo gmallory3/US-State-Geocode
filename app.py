@@ -2,8 +2,8 @@ import logging
 import requests
 from datetime import datetime
 from database.tables import db
-from resources.constants import OUTPUT_FORMAT, GOOGLE_GEOCODE_BASE_URL, API_KEY
-from resources.util import create_geocoding_params, parse_geocode_response
+from resources.config import *
+from resources.util import create_geocoding_params, parse_geocode_response, state_from_coordinates
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 
@@ -51,7 +51,8 @@ def get_state_from_address(address):
 
     if request.method == 'GET':
         response = requests.get(geocoding_api_url)
-        return jsonify(parse_geocode_response(response))
+        coordinates = parse_geocode_response(response)
+        return jsonify(state_from_coordinates(coordinates))
 
 
 if __name__ == '__main__':
@@ -60,4 +61,4 @@ if __name__ == '__main__':
 
     db.create_all()
 
-    app.run(host='0.0.0.0', port=4996)
+    app.run(host=PG_DB_HOST, port=PG_DB_PORT)
