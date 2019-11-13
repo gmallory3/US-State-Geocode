@@ -1,7 +1,16 @@
 """
 Utility Functions
 """
-from flask import request
+from flask import Flask
+from sqlalchemy import create_engine
+from flask_sqlalchemy import SQLAlchemy
+from resources.config import DATABASE_URI
+
+app = Flask(__name__)
+
+db = SQLAlchemy(app)
+
+from database.tables import States
 
 
 def create_geocoding_params(param_dict):
@@ -73,5 +82,19 @@ def parse_geocode_response(response):
 
 
 def state_from_coordinates(coordinates):
-    coordinates['example_state'] = 'TN'
-    return coordinates
+    lat = coordinates['latitude']
+    long = coordinates['longitude']
+
+    limit = 1
+
+    query_str = """
+    SELECT * FROM public.us_state
+    ORDER BY gid ASC LIMIT 5
+    """
+    engine = create_engine(DATABASE_URI)
+    engine.connect()
+
+    result = engine.execute(query_str).fetchall()
+    result = result.dictresult()
+
+    return result['name']

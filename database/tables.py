@@ -32,5 +32,3 @@ class States(db.Model):
     intptlon = db.Column(db.String)
     geom = db.Column(Geometry('POLYGON'))
 
-
-state_records = States.query.all()

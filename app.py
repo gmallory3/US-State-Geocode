@@ -1,15 +1,16 @@
 import logging
 import requests
 from datetime import datetime
-from database.tables import db
+from flask import Flask, request, jsonify
 from resources.config import *
 from resources.util import create_geocoding_params, parse_geocode_response, state_from_coordinates
-from flask import Flask, request, jsonify
-from flask_sqlalchemy import SQLAlchemy
 
 STARTUP_TIME = datetime.now()
 
 app = Flask(__name__)
+
+app.config.from_object('resources.config')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
 file_handler = logging.FileHandler(f'logs/api_log_{STARTUP_TIME.date()}_{STARTUP_TIME.timestamp()}.log')
 app.logger.addHandler(file_handler)
@@ -46,19 +47,23 @@ def get_state_from_address(address):
         'key': API_KEY
     }
 
-    geocoding_params = create_geocoding_params(param_dict)
-    geocoding_api_url = f'{GOOGLE_GEOCODE_BASE_URL}{OUTPUT_FORMAT}?{geocoding_params}'
-
     if request.method == 'GET':
+
+        state_from_coordinates({'latitude': 0.00, 'longitude': 1.11})
+
+        geocoding_params = create_geocoding_params(param_dict)
+        geocoding_api_url = f'{GOOGLE_GEOCODE_BASE_URL}{OUTPUT_FORMAT}?{geocoding_params}'
         response = requests.get(geocoding_api_url)
         coordinates = parse_geocode_response(response)
         return jsonify(state_from_coordinates(coordinates))
+
+    else:
+        app.logger.error(f'This endpoint does not accept {request.method} requests.')
 
 
 if __name__ == '__main__':
     app.debug = True
     app.logger.info(f'Server start time: {STARTUP_TIME}')
 
-    db.create_all()
-
-    app.run(host=PG_DB_HOST, port=PG_DB_PORT)
+    # db.create_all()
+    app.run(host='0.0.0.0', port=4996)
