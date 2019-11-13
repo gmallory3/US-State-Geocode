@@ -2,6 +2,7 @@
 
 Code Setup:
 1. Install the project requirements using `pip install -r requirements.txt`
+2. Use the link https://onetimesecret.com/secret/hdhe96of0hkg15ywvtxqdapc0tnzj2q (along with passphrase `super_secret_password`) to gain access to a limited time API key. This value can be used in the resources/constants.py file. Alternatively, you can set up and use a personal Google Geocoding API key. 
 
 Database Setup (optional):
 1. Install the Postgres.app application (https://postgresapp.com/). 
@@ -13,7 +14,7 @@ Database Setup (optional):
 5. Test by running a select statement against the table!
     * Note, you'll either need to double click your database in Postgress.app or run `psql -h localhost -U DATABASE_USER DATABASE_NAME` to start a db shell.
     
-<img src="https://github.com/gmallory3/US-State-Geocode/tree/master/resources/DB_setup_img_001.png" width="48">
+![screenshot](/resources/DB_setup_img_001.png?raw=True)
 
 Run:
 1. In a terminal, run `python app.py`
